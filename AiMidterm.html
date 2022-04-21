@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+  font-family: sans-serif;
+  background-color: #eeeeee;
+}
+
+.file-upload {
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.file-upload-btn {
+    margin-top: 20px;
+    display: block;
+    font-family: 'Open Sans Condensed', sans-serif;
+    background: #1abc9c;
+    width: 100%;
+    border: none;
+    color: #fff;
+    padding: 10px;
+    letter-spacing: 1.3px;
+    font-size: 1.05em;
+    border-radius: 5px;
+    box-shadow: 0 4px 5px rgba(0,0,0,.3);
+    outline: 0;
+    transition: box-shadow .3s,  margin-top .3s, padding .3s;   
+}
+
+
+.file-upload-btn:hover {
+  background: #1AA059;
+  color: #ffffff;
+  transition: all .2s ease;
+  cursor: pointer;
+}
+
+.file-upload-btn:active {
+  border: 0;
+  transition: all .2s ease;
+}
+
+.file-upload-content {
+  display: none;
+  text-align: center;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 20px;
+  border: 4px dashed #1abc9c;
+  position: relative;
+}
+
+
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: #1FB264;
+  border: 4px dashed #ffffff;
+}
+
+.image-title-wrap {
+  padding: 0 15px 15px 15px;
+  color: #222;
+}
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.file-upload-image {
+  max-height: 200px;
+  max-width: 200px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+.start_btn {
+  box-shadow:inset 0px 0px 0px 0px #a4e271;
+	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+	background-color:#89c403;
+	border-radius:6px;
+	border:1px solid #74b807;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:14px 100px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #528009;
+}
+
+.start_btn:hover {
+  background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
+	background-color:#77a809;
+}
+.start_btn:active {
+  position:relative;
+	top:1px;
+}
+
+.analysis_btn {
+  box-shadow:inset 0px 0px 0px 0px #a4e271;
+	background:linear-gradient(to bottom, #89c403 5%, #77a809 100%);
+	background-color:#89c403;
+	border-radius:6px;
+	border:1px solid #74b807;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:17px;
+	font-weight:bold;
+	padding:14px 100px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #528009;
+}
+
+.analysis_btn:hover {
+  background:linear-gradient(to bottom, #77a809 5%, #89c403 100%);
+	background-color:#77a809;
+}
+
+.analysis_btn:active {
+  position:relative;
+  top:1px;
+}
+
+.title-cotent {
+  text-align: center;
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.two-btn {
+  text-align: center;
+  background-color: #ffffff;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.body-cotent {
+  text-align: center;
+  width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+  </style>
+</head>
+<body>
+<h3 class="title-cotent">현대 인기 자동차 정보 분석 웹</h3>
+<div class="two-btn" style=" text-align: center;">
+<button class="start_btn" onclick="init()">시작</button>
+<button class="analysis_btn" onclick="predict()">분석</button>
+</div>
+<script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<div class="file-upload">
+  <button class="file-upload-btn" type="button" onclick=
+  "$('.file-upload-input').trigger( 'click' )">이미지 추가</button>
+
+  <div class="image-upload-wrap">
+    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+    <div class="drag-text">
+      <h3>파일을 드래그 하거나 클릭하여 삽입해주세요</h3>
+    </div>
+  </div>
+
+  <div class="body-cotent">
+  <h3>그랜저, 소나타, 아반떼, G80, GV80, 싼타페(2022년 기준 신형 모델)  </h3> 
+  <div>이외의 이미지를 첨부한 경우 원하는 결과가 출력되지 않습니다.</div>  
+  </div>
+
+  <div class="file-upload-content">
+    <img class="file-upload-image" id="face-image" src="#" alt="your image" />
+    <div class="image-title-wrap">
+    </div>
+  </div>
+</div>
+<div id="label-container"></div>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+<script>function readURL(input) {
+    if (input.files && input.files[0]) {
+  
+      var reader = new FileReader();
+  
+      reader.onload = function(e) {
+        $('.image-upload-wrap').hide();
+  
+        $('.file-upload-image').attr('src', e.target.result);
+        $('.file-upload-content').show();
+  
+        $('.image-title').html(input.files[0].name);
+      };
+  
+      reader.readAsDataURL(input.files[0]);
+  
+    }
+  }
+  
+
+  </script>
+<script type="text/javascript">
+
+ 
+
+  
+    const URL = "https://teachablemachine.withgoogle.com/models/o3KC_vW1T/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    const data = {
+      "현대 아반떼 7세대": {
+        "name": "현대 아반떼 7세대",
+        "maxpeople": "5인승",
+        "price":"1,866만원 ~ 2,806만원",
+        "fuel":"10.6 ~ 14.9km/l",
+        "kinds":"승용차",
+        "size":"전폭 : 1,825mm, 전장 : 4,650mm, 전고 : 1,420mm",
+      },
+      "현대 쏘나타 8세대": {
+        "name": "현대 쏘나타 8세대",
+        "maxpeople": "5인승",
+        "price":"2,547만원 ~ 3,400만원",
+        "fuel":"10.2 ~ 13.8km/l",
+        "kinds":"승용차",
+        "size":"전폭 : 1,860mm, 전장 : 4,900mm, 전고 : 1,445mm",
+      },
+      "현대 더 뉴 그랜저": {
+        "name": "현대 더 뉴 그랜저",
+        "maxpeople": "5인승",
+        "price":"3,303만원 ~ 4,388만원",
+        "fuel":"9.7 ~ 11.9km/l",
+        "kinds":"승용차",
+        "size":"전폭 : 1,875mm, 전장 : 4,990mm, 전고 : 1,470mm",
+      },
+      "현대 제네시스 g80": {
+        "name": "현대 제네시스 g80",
+        "maxpeople": "5인승",
+        "price":"5,311만원 ~ 6,833만원",
+        "fuel":"9.2 ~ 14.6km/l",
+        "kinds":"승용차",
+        "size":"전폭 : 1,925mm, 전장 : 4,995mm, 전고 : 1,465mm",
+      },
+      "현대 제네시스 gv80": {
+        "name": "현대 아반떼 7세대",
+        "maxpeople": "5인승",
+        "price":"6,136만원 ~ 7,056만원",
+        "fuel":"8.6 ~ 11.8km/l",
+        "kinds":"SUV",
+        "size":"전폭 : 1,975mm, 전장 : 4,945mm, 전고 : 1,715mm",
+      },
+      "현대 싼타페 4세대": {
+        "name": "현대 싼타페 4세대",
+        "maxpeople": "5인승",
+        "price":"2,628만원 ~ 4,022만원",
+        "fuel":"9.0 ~ 13.8km/l",
+        "kinds":"SUV",
+        "size":"전폭 : 1,890mm, 전장 : 4,770mm, 전고 : 1,680mm",
+      }
+    }
+
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        labelContainer = document.getElementById("label-container");
+         for (let i = 0; i < maxPredictions; i++) { 
+            labelContainer.appendChild(document.createElement("div"));
+        }
+    }
+
+    async function predict() {
+        var image = document.getElementById("face-image")
+        const prediction = await model.predict(image, false);
+        for (let i = 0; i < maxPredictions; i++) {
+            if (prediction[i].probability.toFixed(2) === '1.00') {
+              const item = data[prediction[i].className] 
+              labelContainer.innerHTML = `<p align="center">이름: ${item.name}</p>
+              <p align="center">최대탑승인원: ${item.maxpeople}</p> 
+              <p align="center">가격: ${item.price}</p>
+              <p align="center">연료: ${item.fuel}</p>
+              <p align="center">크기: ${item.size}</p>
+              <div style="text-align:center;">
+              <img src = "image/carsize.png" width="400" height="200">
+              </div>`
+          }
+        }
+    }
+</script>
